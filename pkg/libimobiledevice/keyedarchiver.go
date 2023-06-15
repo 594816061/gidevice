@@ -1,6 +1,7 @@
 package libimobiledevice
 
 import (
+	"fmt"
 	"reflect"
 	"time"
 
@@ -243,6 +244,9 @@ func (ka *NSKeyedArchiver) Unmarshal(b []byte) (interface{}, error) {
 		ka.objRefVal = append(ka.objRefVal, v)
 	}
 
+	if len(ka.objRefVal) == 0 {
+		return "", fmt.Errorf("len(ka.objRefVal) is 0")
+	}
 	ret := ka.convertValue(ka.objRefVal[archiver.Top.Root])
 
 	ka.clear()
